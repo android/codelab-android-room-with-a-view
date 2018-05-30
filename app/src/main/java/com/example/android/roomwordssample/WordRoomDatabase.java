@@ -34,7 +34,7 @@ public abstract class WordRoomDatabase extends RoomDatabase {
 
     public abstract WordDao wordDao();
 
-    private static WordRoomDatabase INSTANCE;
+    private static volatile WordRoomDatabase INSTANCE;
 
     static WordRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
