@@ -2,7 +2,7 @@ RoomWordsSample
 ================
 
 This repository contains the finished sample code for the
-Architecture Components codelab.
+[Architecture Components codelab](https://codelabs.developers.google.com/codelabs/android-room-with-a-view/index.html?index=..%2F..%2Findex#0).
 
 Introduction
 ------------
@@ -33,7 +33,7 @@ In particular:
 
 * RecyclerView and Adapters
 * SQLite database and the SQLite query language
-* Threadig and AsyncTask
+* Threading and AsyncTask
 * It helps to be familiar with software architectural patterns that separate
   data from the user interface, such as MVP or MVC. This codelab implements the
   architecture defined in the

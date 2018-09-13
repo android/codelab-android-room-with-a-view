@@ -16,6 +16,7 @@ package com.example.android.roomwordssample;
  * limitations under the License.
  */
 
+import android.arch.core.executor.testing.InstantTaskExecutorRule;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -62,7 +63,7 @@ public class WordDaoTest {
     }
 
     @After
-    public void closeDb() throws IOException {
+    public void closeDb() {
         mDb.close();
     }
 
