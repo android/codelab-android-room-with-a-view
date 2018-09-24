@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License. -->
 
 <!-- Uses the Basic Activity Template.
-  Removed most of its unnecessary code for the  RecyclerView
+  Removed most of its unnecessary code for the RecyclerView
   to make the code much more readable. -->
 
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
