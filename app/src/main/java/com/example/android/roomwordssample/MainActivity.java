@@ -34,7 +34,7 @@ import android.widget.Toast;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnWordClick {
 
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        final WordListAdapter adapter = new WordListAdapter(this);
+        final WordListAdapter adapter = new WordListAdapter(this, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -89,5 +89,10 @@ public class MainActivity extends AppCompatActivity {
                     R.string.empty_not_saved,
                     Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void nWordClick(Word word) {
+        mWordViewModel.delete(word);
     }
 }

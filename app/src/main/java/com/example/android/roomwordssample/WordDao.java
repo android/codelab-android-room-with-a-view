@@ -18,6 +18,7 @@ package com.example.android.roomwordssample;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
@@ -42,6 +43,9 @@ public interface WordDao {
     @Query("SELECT * from word_table ORDER BY word ASC")
     LiveData<List<Word>> getAlphabetizedWords();
 
+    @Query("SELECT * from word_table")
+    LiveData<List<Word>> getWordsUnordered();
+
     // We do not need a conflict strategy, because the word is our primary key, and you cannot
     // add two items with the same primary key to the database. If the table has more than one
     // column, you can use @Insert(onConflict = OnConflictStrategy.REPLACE) to update a row.
@@ -50,4 +54,7 @@ public interface WordDao {
 
     @Query("DELETE FROM word_table")
     void deleteAll();
+
+    @Delete
+    void delete(Word word);
 }

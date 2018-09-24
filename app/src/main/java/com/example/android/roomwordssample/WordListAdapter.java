@@ -29,6 +29,7 @@ import java.util.List;
 
 
 public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordViewHolder> {
+    OnWordClick mListener;
 
     class WordViewHolder extends RecyclerView.ViewHolder {
         private final TextView wordItemView;
@@ -42,7 +43,10 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
     private final LayoutInflater mInflater;
     private List<Word> mWords = Collections.emptyList(); // Cached copy of words
 
-    WordListAdapter(Context context) { mInflater = LayoutInflater.from(context); }
+    WordListAdapter(Context context, OnWordClick listener) {
+        mInflater = LayoutInflater.from(context);
+        mListener = listener;
+    }
 
     @Override
     public WordViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -51,9 +55,15 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
     }
 
     @Override
-    public void onBindViewHolder(WordViewHolder holder, int position) {
-        Word current = mWords.get(position);
+    public void onBindViewHolder(WordViewHolder holder, final int position) {
+        final Word current = mWords.get(position);
         holder.wordItemView.setText(current.getWord());
+        holder.wordItemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.nWordClick(current);
+            }
+        });
     }
 
     void setWords(List<Word> words){
