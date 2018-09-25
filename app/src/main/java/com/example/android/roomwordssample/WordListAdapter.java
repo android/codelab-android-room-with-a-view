@@ -23,7 +23,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -42,7 +41,9 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
     private final LayoutInflater mInflater;
     private List<Word> mWords = Collections.emptyList(); // Cached copy of words
 
-    WordListAdapter(Context context) { mInflater = LayoutInflater.from(context); }
+    WordListAdapter(Context context) {
+        mInflater = LayoutInflater.from(context);
+    }
 
     @Override
     public WordViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -56,14 +57,14 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
         holder.wordItemView.setText(current.getWord());
     }
 
-    void setWords(List<Word> words){
+    void setWords(List<Word> words) {
         mWords = words;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-         return mWords.size();
+        return mWords.size();
     }
 }
 
