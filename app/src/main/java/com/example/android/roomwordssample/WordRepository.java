@@ -27,7 +27,7 @@ import java.util.List;
  * https://developer.android.com/topic/libraries/architecture/guide.html
  */
 
-public class WordRepository {
+class WordRepository {
 
     private WordDao mWordDao;
     private LiveData<List<Word>> mAllWords;
@@ -51,7 +51,7 @@ public class WordRepository {
     // You must call this on a non-UI thread or your app will crash.
     // Like this, Room ensures that you're not doing any long running operations on the main
     // thread, blocking the UI.
-    public void insert (Word word) {
+    void insert(Word word) {
         new insertAsyncTask(mWordDao).execute(word);
     }
 
