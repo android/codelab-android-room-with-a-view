@@ -1,8 +1,10 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.example.android.roomwordssample"
         minSdkVersion 20
@@ -18,6 +20,11 @@ android {
         }
     }
 }
+
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
@@ -27,15 +34,24 @@ dependencies {
     // Dependencies for working with Architecture components
     // You'll probably have to update the version numbers in guild.gradle (Project)
     implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
-    annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomVersion"
+    kapt "android.arch.persistence.room:compiler:$rootProject.roomVersion"
     androidTestImplementation "android.arch.persistence.room:testing:$rootProject.roomVersion"
 
     implementation "android.arch.lifecycle:extensions:$rootProject.archLifecycleVersion"
-    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.archLifecycleVersion"
+    kapt "android.arch.lifecycle:compiler:$rootProject.archLifecycleVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutines"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutines"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation "android.arch.core:core-testing:$rootProject.archLifecycleVersion"
     androidTestImplementation ('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+}
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
 }
