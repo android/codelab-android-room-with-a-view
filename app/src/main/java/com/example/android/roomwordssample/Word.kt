@@ -1,5 +1,3 @@
-package com.example.android.roomwordssample;
-
 /*
  * Copyright (C) 2017 Google Inc.
  *
@@ -16,10 +14,11 @@ package com.example.android.roomwordssample;
  * limitations under the License.
  */
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-import androidx.annotation.NonNull;
+package com.example.android.roomwordssample
+
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 /**
  * A basic class representing an entity that is a row in a one-column database table.
@@ -33,19 +32,4 @@ import androidx.annotation.NonNull;
  */
 
 @Entity(tableName = "word_table")
-public class Word {
-
-    @PrimaryKey
-    @NonNull
-    @ColumnInfo(name = "word")
-    private String mWord;
-
-    public Word(@NonNull String word) {
-        this.mWord = word;
-    }
-
-    @NonNull
-    public String getWord() {
-        return this.mWord;
-    }
-}
+data class Word(@PrimaryKey @ColumnInfo(name = "word") val word: String)
