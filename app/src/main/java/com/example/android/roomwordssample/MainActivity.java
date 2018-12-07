@@ -80,7 +80,15 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             Word word = new Word(data.getStringExtra(NewWordActivity.EXTRA_REPLY));
-            mWordViewModel.insert(word);
+
+            if (!mWordViewModel.isExistingKey(word)) {
+                mWordViewModel.insert(word);
+            } else {
+                Toast.makeText(
+                        getApplicationContext(),
+                        R.string.key_already_exists,
+                        Toast.LENGTH_LONG).show();
+            }
         } else {
             Toast.makeText(
                     getApplicationContext(),

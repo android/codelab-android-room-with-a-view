@@ -55,6 +55,14 @@ class WordRepository {
         new insertAsyncTask(mWordDao).execute(word);
     }
 
+    boolean isExistingKey(Word word) {
+        if (getAllWords().getValue() != null)
+            for (Word w : getAllWords().getValue()) {
+                if (w.getWord().equals(word.getWord())) return true;
+            }
+        return false;
+    }
+
     private static class insertAsyncTask extends AsyncTask<Word, Void, Void> {
 
         private WordDao mAsyncTaskDao;
