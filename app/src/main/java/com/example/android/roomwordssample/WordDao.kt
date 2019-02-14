@@ -19,6 +19,7 @@ package com.example.android.roomwordssample
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
+import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
 
 /**
@@ -43,7 +44,7 @@ interface WordDao {
     // We do not need a conflict strategy, because the word is our primary key, and you cannot
     // add two items with the same primary key to the database. If the table has more than one
     // column, you can use @Insert(onConflict = OnConflictStrategy.REPLACE) to update a row.
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(word: Word)
 
     @Query("DELETE FROM word_table")
