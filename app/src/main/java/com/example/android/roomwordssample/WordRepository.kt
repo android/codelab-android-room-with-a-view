@@ -16,8 +16,8 @@ package com.example.android.roomwordssample
  * limitations under the License.
  */
 
-import android.arch.lifecycle.LiveData
-import android.support.annotation.WorkerThread
+import androidx.lifecycle.LiveData
+import androidx.annotation.WorkerThread
 
 /**
  * Abstracted Repository as promoted by the Architecture Guide.
