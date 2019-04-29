@@ -22,6 +22,7 @@ import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertTrue
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -65,7 +66,7 @@ class WordDaoTest {
 
     @Test
     @Throws(Exception::class)
-    fun insertAndGetWord() {
+    fun insertAndGetWord() = runBlocking {
         val word = Word("word")
         wordDao.insert(word)
         val allWords = wordDao.getAlphabetizedWords().waitForValue()
@@ -74,7 +75,7 @@ class WordDaoTest {
 
     @Test
     @Throws(Exception::class)
-    fun getAllWords() {
+    fun getAllWords() = runBlocking {
         val word = Word("aaa")
         wordDao.insert(word)
         val word2 = Word("bbb")
@@ -86,7 +87,7 @@ class WordDaoTest {
 
     @Test
     @Throws(Exception::class)
-    fun deleteAll() {
+    fun deleteAll() = runBlocking {
         val word = Word("word")
         wordDao.insert(word)
         val word2 = Word("word2")

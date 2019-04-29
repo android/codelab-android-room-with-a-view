@@ -44,7 +44,7 @@ interface WordDao {
     // add two items with the same primary key to the database. If the table has more than one
     // column, you can use @Insert(onConflict = OnConflictStrategy.REPLACE) to update a row.
     @Insert
-    fun insert(word: Word)
+    suspend fun insert(word: Word)
 
     @Query("DELETE FROM word_table")
     fun deleteAll()
