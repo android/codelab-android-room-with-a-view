@@ -49,7 +49,7 @@ class WordViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */
-    fun insert(word: Word) = viewModelScope.launch(Dispatchers.IO) {
+    fun insert(word: Word) = viewModelScope.launch {
         repository.insert(word)
     }
 }
