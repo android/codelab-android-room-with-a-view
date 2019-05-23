@@ -73,7 +73,7 @@ abstract class WordRoomDatabase : RoomDatabase() {
                 // If you want to keep the data through app restarts,
                 // comment out the following line.
                 INSTANCE?.let { database ->
-                    scope.launch(Dispatchers.IO) {
+                    scope.launch {
                         populateDatabase(database.wordDao())
                     }
                 }
