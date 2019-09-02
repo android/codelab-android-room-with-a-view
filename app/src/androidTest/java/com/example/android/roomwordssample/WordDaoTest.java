@@ -16,11 +16,10 @@ package com.example.android.roomwordssample;
  * limitations under the License.
  */
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
-import androidx.room.Room;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+
 import android.content.Context;
-import androidx.test.InstrumentationRegistry;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Before;
@@ -30,9 +29,10 @@ import org.junit.runner.RunWith;
 
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+import androidx.room.Room;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 /**
  * This is not meant to be a full set of tests. For simplicity, most of your samples do not
@@ -51,7 +51,7 @@ public class WordDaoTest {
 
     @Before
     public void createDb() {
-        Context context = InstrumentationRegistry.getTargetContext();
+        Context context = ApplicationProvider.getApplicationContext();
         // Using an in-memory database because the information stored here disappears when the
         // process is killed.
         mDb = Room.inMemoryDatabaseBuilder(context, WordRoomDatabase.class)
