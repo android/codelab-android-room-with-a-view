@@ -52,14 +52,14 @@ class WordRepository {
     // Like this, Room ensures that you're not doing any long running operations on the main
     // thread, blocking the UI.
     void insert(Word word) {
-        new insertAsyncTask(mWordDao).execute(word);
+        new InsertAsyncTask(mWordDao).execute(word);
     }
 
-    private static class insertAsyncTask extends AsyncTask<Word, Void, Void> {
+    private static class InsertAsyncTask extends AsyncTask<Word, Void, Void> {
 
         private WordDao mAsyncTaskDao;
 
-        insertAsyncTask(WordDao dao) {
+        InsertAsyncTask(WordDao dao) {
             mAsyncTaskDao = dao;
         }
 
