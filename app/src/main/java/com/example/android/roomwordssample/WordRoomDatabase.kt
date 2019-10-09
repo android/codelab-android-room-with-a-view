@@ -50,9 +50,6 @@ abstract class WordRoomDatabase : RoomDatabase() {
                         WordRoomDatabase::class.java,
                         "word_database"
                 )
-                        // Wipes and rebuilds instead of migrating if no Migration object.
-                        // Migration is not part of this codelab.
-                        .fallbackToDestructiveMigration()
                         .addCallback(WordDatabaseCallback(scope))
                         .build()
                 INSTANCE = instance
@@ -84,7 +81,7 @@ abstract class WordRoomDatabase : RoomDatabase() {
          * Populate the database in a new coroutine.
          * If you want to start with more words, just add them.
          */
-        fun populateDatabase(wordDao: WordDao) {
+        suspend fun populateDatabase(wordDao: WordDao) {
             // Start the app with a clean database every time.
             // Not needed if you only populate on creation.
             wordDao.deleteAll()

@@ -32,8 +32,6 @@ class WordRepository(private val wordDao: WordDao) {
     // suspend function so the caller methods know this.
     // Like this, Room ensures that you're not doing any long running operations on the main
     // thread, blocking the UI.
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
     suspend fun insert(word: Word) {
         wordDao.insert(word)
     }
