@@ -41,10 +41,13 @@ class WordViewModel(application: Application) : AndroidViewModel(application) {
         allWords = repository.allWords
     }
 
-    // The implementation of insert() is completely hidden from the UI.
-    // We don't want insert to block the main thread, so we’re launching a new
-    // coroutine. ViewModels have a coroutine scope based on their lifecycle called
-    // viewModelScope which we can use here.
+    /**
+     * The implementation of insert() in the database is completely hidden from the UI.
+     * Room ensures that you're not doing any long running operations on the mainthread, blocking
+     * the UI, so we don't need to handle changing Dispatchers.
+     * ViewModels have a coroutine scope based on their lifecycle called viewModelScope which we
+     * can use here.
+     */
     fun insert(word: Word) = viewModelScope.launch {
         repository.insert(word)
     }
