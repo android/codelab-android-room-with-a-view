@@ -28,7 +28,8 @@ import java.util.concurrent.Executors;
 
 /**
  * This is the backend. The database. This used to be done by the OpenHelper.
- * The fact that this has very few comments emphasizes its coolness.
+ * The fact that this has very few comments emphasizes its coolness.  In a real
+ * app, consider exporting the schema to help you with migrations.
  */
 
 @Database(entities = {Word.class}, version = 1, exportSchema = false)
