@@ -39,7 +39,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
     }
 
     private final LayoutInflater mInflater;
-    private List<Word> mWords = Collections.emptyList(); // Cached copy of words
+    private List<Word> mWords; // Cached copy of words
 
     WordListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
@@ -53,8 +53,13 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
 
     @Override
     public void onBindViewHolder(WordViewHolder holder, int position) {
-        Word current = mWords.get(position);
-        holder.wordItemView.setText(current.getWord());
+        if (mWords != null) {
+            Word current = mWords.get(position);
+            holder.wordItemView.setText(current.getWord());
+        } else {
+            // Covers the case of data not being ready yet.
+            holder.wordItemView.setText("No Word");
+        }
     }
 
     void setWords(List<Word> words) {
@@ -62,9 +67,13 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
         notifyDataSetChanged();
     }
 
+    // getItemCount() is called many times, and when it is first called,
+    // mWords has not been updated (means initially, it's null, and we can't return null).
     @Override
     public int getItemCount() {
-        return mWords.size();
+        if (mWords != null)
+            return mWords.size();
+        else return 0;
     }
 }
 
