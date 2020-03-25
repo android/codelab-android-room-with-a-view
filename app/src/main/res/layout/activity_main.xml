@@ -30,8 +30,8 @@ So, we are leaving the template code in. -->
         android:id="@+id/recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@android:color/darker_gray"
         tools:listitem="@layout/recyclerview_item"
+        android:padding="@dimen/big_padding"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -44,6 +44,7 @@ So, we are leaving the template code in. -->
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:contentDescription="@string/add_word"
         android:src="@drawable/ic_add_black_24dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
