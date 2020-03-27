@@ -19,11 +19,9 @@ package com.example.android.roomwordssample
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import kotlinx.coroutines.CoroutineScope
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
 /**
  * View Model to keep a reference to the word repository and
@@ -31,12 +29,6 @@ import kotlin.coroutines.CoroutineContext
  */
 
 class WordViewModel(application: Application) : AndroidViewModel(application) {
-
-    private var parentJob = Job()
-    // By default all the coroutines launched in this scope should be using the Main dispatcher
-    private val coroutineContext: CoroutineContext
-        get() = parentJob + Dispatchers.Main
-    private val scope = CoroutineScope(coroutineContext)
 
     private val repository: WordRepository
     // Using LiveData and caching what getAlphabetizedWords returns has several benefits:
@@ -46,7 +38,7 @@ class WordViewModel(application: Application) : AndroidViewModel(application) {
     val allWords: LiveData<List<Word>>
 
     init {
-        val wordsDao = WordRoomDatabase.getDatabase(application, scope).wordDao()
+        val wordsDao = WordRoomDatabase.getDatabase(application, viewModelScope).wordDao()
         repository = WordRepository(wordsDao)
         allWords = repository.allWords
     }
@@ -54,12 +46,7 @@ class WordViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */
-    fun insert(word: Word) = scope.launch(Dispatchers.IO) {
+    fun insert(word: Word) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(word)
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        parentJob.cancel()
     }
 }
