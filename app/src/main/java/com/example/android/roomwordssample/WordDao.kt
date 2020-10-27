@@ -22,9 +22,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
-
 /**
- * The Room Magic is in this file, where you map a Java method call to an SQL query.
+ * The Room Magic is in this file, where you map a method call to an SQL query.
  *
  * When you are using complex data types, such as Date, you have to also supply type converters.
  * To keep this example basic, no types that require type converters are used.
@@ -39,7 +38,7 @@ interface WordDao {
     // Always holds/caches latest version of data. Notifies its active observers when the
     // data has changed. Since we are getting all the contents of the database,
     // we are notified whenever any of the database contents have changed.
-    @Query("SELECT * from word_table ORDER BY word ASC")
+    @Query("SELECT * FROM word_table ORDER BY word ASC")
     fun getAlphabetizedWords(): LiveData<List<Word>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
