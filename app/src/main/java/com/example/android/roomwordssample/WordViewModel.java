@@ -34,7 +34,7 @@ public class WordViewModel extends AndroidViewModel {
     // - We can put an observer on the data (instead of polling for changes) and only update the
     //   the UI when the data actually changes.
     // - Repository is completely separated from the UI through the ViewModel.
-    private LiveData<List<Word>> mAllWords;
+    private final LiveData<List<Word>> mAllWords;
 
     public WordViewModel(Application application) {
         super(application);
