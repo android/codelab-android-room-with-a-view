@@ -21,7 +21,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,10 +47,13 @@ class MainActivity : AppCompatActivity() {
         // Add an observer on the LiveData returned by getAlphabetizedWords.
         // The onChanged() method fires when the observed data changes and the activity is
         // in the foreground.
-        wordViewModel.allWords.observe(this, Observer { words ->
-            // Update the cached copy of the words in the adapter.
-            words?.let { adapter.setWords(it) }
-        })
+        wordViewModel.allWords.observe(
+            this,
+            Observer { words ->
+                // Update the cached copy of the words in the adapter.
+                words?.let { adapter.setWords(it) }
+            }
+        )
 
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
@@ -64,16 +66,15 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, intentData)
 
         if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            intentData?.let { data ->
-                val word = Word(data.getStringExtra(NewWordActivity.EXTRA_REPLY))
+            intentData?.getStringExtra(NewWordActivity.EXTRA_REPLY)?.let { reply ->
+                val word = Word(reply)
                 wordViewModel.insert(word)
-                Unit
             }
         } else {
             Toast.makeText(
-                    applicationContext,
-                    R.string.empty_not_saved,
-                    Toast.LENGTH_LONG
+                applicationContext,
+                R.string.empty_not_saved,
+                Toast.LENGTH_LONG
             ).show()
         }
     }
