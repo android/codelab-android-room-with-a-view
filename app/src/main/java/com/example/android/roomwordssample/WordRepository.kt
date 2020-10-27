@@ -16,7 +16,7 @@
 package com.example.android.roomwordssample
 
 import androidx.annotation.WorkerThread
-import androidx.lifecycle.LiveData
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Abstracted Repository as promoted by the Architecture Guide.
@@ -25,8 +25,8 @@ import androidx.lifecycle.LiveData
 class WordRepository(private val wordDao: WordDao) {
 
     // Room executes all queries on a separate thread.
-    // Observed LiveData will notify the observer when the data has changed.
-    val allWords: LiveData<List<Word>> = wordDao.getAlphabetizedWords()
+    // Observed Flow will notify the observer when the data has changed.
+    val allWords: Flow<List<Word>> = wordDao.getAlphabetizedWords()
 
     // You must call this on a non-UI thread or your app will crash. So we're making this a
     // suspend function so the caller methods know this.
