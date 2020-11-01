@@ -16,30 +16,24 @@
 package com.example.android.roomwordssample
 
 import androidx.annotation.WorkerThread
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.withContext
 
 /**
  * Abstracted Repository as promoted by the Architecture Guide.
  * https://developer.android.com/topic/libraries/architecture/guide.html
  */
-class WordRepository(
-    private val wordDao: WordDao,
-    private val ioDispatcher: CoroutineDispatcher
-) {
+class WordRepository(private val wordDao: WordDao) {
 
     // Room executes all queries on a separate thread.
     // Observed Flow will notify the observer when the data has changed.
     val allWords: Flow<List<Word>> = wordDao.getAlphabetizedWords()
 
-    // You must call this on a non-UI thread or your app will crash. So we're making this a
-    // suspend function so the caller methods know this.
-    // Like this, Room ensures that you're not doing any long running operations on the main
-    // thread, blocking the UI.
+    // By default Room runs suspend queries off the main thread, therefore, we don't need to
+    // implement anything else to ensure we're not doing long running database work
+    // off the main thread.
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insert(word: Word) = withContext(ioDispatcher) {
+    suspend fun insert(word: Word) {
         wordDao.insert(word)
     }
 }
