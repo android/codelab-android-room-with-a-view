@@ -16,13 +16,18 @@
 package com.example.android.roomwordssample
 
 import androidx.annotation.WorkerThread
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 
 /**
  * Abstracted Repository as promoted by the Architecture Guide.
  * https://developer.android.com/topic/libraries/architecture/guide.html
  */
-class WordRepository(private val wordDao: WordDao) {
+class WordRepository(
+    private val wordDao: WordDao,
+    private val ioDispatcher: CoroutineDispatcher
+) {
 
     // Room executes all queries on a separate thread.
     // Observed Flow will notify the observer when the data has changed.
@@ -34,7 +39,7 @@ class WordRepository(private val wordDao: WordDao) {
     // thread, blocking the UI.
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insert(word: Word) {
+    suspend fun insert(word: Word) = withContext(ioDispatcher) {
         wordDao.insert(word)
     }
 }
