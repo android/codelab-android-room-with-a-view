@@ -27,6 +27,10 @@ android {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 repositories {
@@ -35,6 +39,7 @@ repositories {
 
 dependencies {
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
+    implementation "androidx.activity:activity-ktx:$rootProject.activityVersion"
 
     // Dependencies for working with Architecture components
     // You'll probably have to update the version numbers in build.gradle (Project)

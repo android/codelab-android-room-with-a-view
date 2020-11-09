@@ -65,11 +65,10 @@ abstract class WordRoomDatabase : RoomDatabase() {
             private val scope: CoroutineScope
         ) : RoomDatabase.Callback() {
             /**
-             * Override the onOpen method to populate the database.
-             * For this sample, we clear the database every time it is created or opened.
+             * Override the onCreate method to populate the database.
              */
-            override fun onOpen(db: SupportSQLiteDatabase) {
-                super.onOpen(db)
+            override fun onCreate(db: SupportSQLiteDatabase) {
+                super.onCreate(db)
                 // If you want to keep the data through app restarts,
                 // comment out the following line.
                 INSTANCE?.let { database ->
@@ -84,7 +83,7 @@ abstract class WordRoomDatabase : RoomDatabase() {
          * Populate the database in a new coroutine.
          * If you want to start with more words, just add them.
          */
-        fun populateDatabase(wordDao: WordDao) {
+        suspend fun populateDatabase(wordDao: WordDao) {
             // Start the app with a clean database every time.
             // Not needed if you only populate on creation.
             wordDao.deleteAll()
