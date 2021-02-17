@@ -33,6 +33,7 @@ ext {
     lifecycleVersion = '2.2.0'
     materialVersion = '1.2.1'
     roomVersion = '2.2.5'
+    navigationVersion = '2.3.3'
     // testing
     junitVersion = '4.13.1'
     espressoVersion = '3.1.0'

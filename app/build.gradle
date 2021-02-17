@@ -42,6 +42,9 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
     implementation "com.google.android.material:material:$rootProject.materialVersion"
 
+    //Navigation
+    implementation "androidx.navigation:navigation-ui:$rootProject.navigationVersion"
+
     // Testing
     testImplementation "junit:junit:$rootProject.junitVersion"
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
