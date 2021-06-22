@@ -22,10 +22,15 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
 
@@ -52,6 +57,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         val fab = findViewById<FloatingActionButton>(R.id.fab)
+        val fabTwo = findViewById<FloatingActionButton>(R.id.fab_two)
+
+        fabTwo.setOnClickListener {
+            wordViewModel.deleteAll()
+        }
         fab.setOnClickListener {
             val intent = Intent(this@MainActivity, NewWordActivity::class.java)
             startActivityForResult(intent, newWordActivityRequestCode)
@@ -68,9 +78,9 @@ class MainActivity : AppCompatActivity() {
             }
         } else {
             Toast.makeText(
-                applicationContext,
-                R.string.empty_not_saved,
-                Toast.LENGTH_LONG
+                    applicationContext,
+                    R.string.empty_not_saved,
+                    Toast.LENGTH_LONG
             ).show()
         }
     }

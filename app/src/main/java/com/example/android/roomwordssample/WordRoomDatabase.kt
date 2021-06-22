@@ -20,6 +20,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,7 +30,7 @@ import kotlinx.coroutines.launch
  * This is the backend. The database. This used to be done by the OpenHelper.
  * The fact that this has very few comments emphasizes its coolness.
  */
-@Database(entities = [Word::class], version = 1)
+@Database(entities = [Word::class], version = 2)
 abstract class WordRoomDatabase : RoomDatabase() {
 
     abstract fun wordDao(): WordDao
@@ -39,30 +40,39 @@ abstract class WordRoomDatabase : RoomDatabase() {
         private var INSTANCE: WordRoomDatabase? = null
 
         fun getDatabase(
-            context: Context,
-            scope: CoroutineScope
+                context: Context,
+                scope: CoroutineScope
         ): WordRoomDatabase {
             // if the INSTANCE is not null, then return it,
             // if it is, then create the database
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    WordRoomDatabase::class.java,
-                    "word_database"
-                )
-                    // Wipes and rebuilds instead of migrating if no Migration object.
-                    // Migration is not part of this codelab.
-                    .fallbackToDestructiveMigration()
-                    .addCallback(WordDatabaseCallback(scope))
-                    .build()
+                        context.applicationContext,
+                        WordRoomDatabase::class.java,
+                        "word_database"
+                ).fallbackToDestructiveMigration()//升级出现异常时重建数据库表，数据库数据将会被清空
+                        .addMigrations(migration1_2)
+//                        .allowMainThreadQueries()
+                        .addCallback(WordDatabaseCallback(scope))
+                        .build()
                 INSTANCE = instance
                 // return instance
                 instance
             }
         }
 
+        /**
+         * 数据库升级
+         */
+        private val migration1_2: Migration = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE word_table  ADD COLUMN sex INTEGER NOT NULL DEFAULT 1 ")
+            }
+        }
+
+
         private class WordDatabaseCallback(
-            private val scope: CoroutineScope
+                private val scope: CoroutineScope
         ) : RoomDatabase.Callback() {
             /**
              * Override the onCreate method to populate the database.

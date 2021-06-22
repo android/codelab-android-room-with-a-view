@@ -16,7 +16,9 @@
 package com.example.android.roomwordssample
 
 import androidx.annotation.WorkerThread
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 
 /**
  * Abstracted Repository as promoted by the Architecture Guide.
@@ -32,8 +34,15 @@ class WordRepository(private val wordDao: WordDao) {
     // implement anything else to ensure we're not doing long running database work
     // off the main thread.
     @Suppress("RedundantSuspendModifier")
-    @WorkerThread
     suspend fun insert(word: Word) {
-        wordDao.insert(word)
+        withContext(Dispatchers.IO) {
+            wordDao.insert(word)
+        }
+    }
+
+    suspend fun deleteAll() {
+        withContext(Dispatchers.IO) {
+            wordDao.deleteAll()
+        }
     }
 }
