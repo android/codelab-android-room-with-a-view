@@ -35,7 +35,7 @@ class WordViewHolder extends RecyclerView.ViewHolder {
         wordItemView.setText(text);
     }
 
-    static WordViewHolder create(ViewGroup parent) {
+    public static WordViewHolder create(ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recyclerview_item, parent, false);
         return new WordViewHolder(view);
