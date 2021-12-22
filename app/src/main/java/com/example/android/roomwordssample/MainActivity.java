@@ -18,7 +18,6 @@ package com.example.android.roomwordssample;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,10 +50,8 @@ public class MainActivity extends AppCompatActivity {
         // Add an observer on the LiveData returned by getAlphabetizedWords.
         // The onChanged() method fires when the observed data changes and the activity is
         // in the foreground.
-        mWordViewModel.getAllWords().observe(this, words -> {
-            // Update the cached copy of the words in the adapter.
-            adapter.submitList(words);
-        });
+        // Update the cached copy of the words in the adapter.
+        mWordViewModel.getAllWords().observe(this, adapter::submitList);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
