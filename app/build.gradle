@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     defaultConfig {
         applicationId "com.example.android.roomwordssample"
         minSdkVersion 20
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -53,7 +53,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:$rootProject.lifecycleVersion"
 
     // Kotlin components
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutines"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutines"
 
