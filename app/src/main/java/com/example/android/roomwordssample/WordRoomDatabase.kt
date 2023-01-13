@@ -45,19 +45,24 @@ abstract class WordRoomDatabase : RoomDatabase() {
             // if the INSTANCE is not null, then return it,
             // if it is, then create the database
             return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    WordRoomDatabase::class.java,
-                    "word_database"
-                )
+                INSTANCE ?:
+                run {
                     // Wipes and rebuilds instead of migrating if no Migration object.
                     // Migration is not part of this codelab.
-                    .fallbackToDestructiveMigration()
-                    .addCallback(WordDatabaseCallback(scope))
-                    .build()
-                INSTANCE = instance
-                // return instance
-                instance
+                    val instance = Room.databaseBuilder(
+                        context.applicationContext,
+                        WordRoomDatabase::class.java,
+                        "word_database"
+                    )
+                        // Wipes and rebuilds instead of migrating if no Migration object.
+                        // Migration is not part of this codelab.
+                        .fallbackToDestructiveMigration()
+                        .addCallback(WordDatabaseCallback(scope))
+                        .build()
+                    INSTANCE = instance
+                    // return instance
+                    instance
+                }
             }
         }
 
