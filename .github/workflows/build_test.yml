@@ -78,12 +78,12 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: Download app APK
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4.1.7
         with:
           name: app-debug
 
       - name: Download Android test APK
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4.1.7
         with:
           name: app-debug-androidTest
 
