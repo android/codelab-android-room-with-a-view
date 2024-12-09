@@ -1,3 +1,5 @@
+> # This codelab is deprecated and it will be removed soon.
+
 RoomWordsSample
 ================
 
